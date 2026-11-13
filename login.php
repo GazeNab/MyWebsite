@@ -12,7 +12,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = trim($_POST["email"]);
     $password = $_POST["password"];
 
-    // SELECT * with WHERE: find the user by email
     $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -30,29 +29,32 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
+  <title>Document</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div class="box">
+
     <h2>Login</h2>
 
     <?php if ($message): ?>
       <p class="<?= isset($_GET['registered']) ? 'success' : 'message' ?>"><?= htmlspecialchars($message) ?></p>
     <?php endif; ?>
 
-    <form method="POST">
+    <form method="POST" action="">
       <input type="email" name="email" placeholder="Email" required>
       <input type="password" name="password" placeholder="Password" required>
       <button type="submit">Login</button>
     </form>
 
-    <a href="register.php">No account yet? Register</a>
+    <p class="switch">No account yet? <a href="register.php">Register</a></p>
+    
   </div>
 </body>
 </html>

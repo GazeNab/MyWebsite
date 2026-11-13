@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($username === "" || $email === "" || $password === "") {
         $message = "All fields are required.";
     } else {
-        // SELECT with WHERE: check for an existing username or email
+        
         $check = $conn->prepare("SELECT id FROM users WHERE username = ? OR email = ?");
         $check->bind_param("ss", $username, $email);
         $check->execute();
@@ -43,25 +43,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register</title>
+  <title>Document</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div class="box">
+
     <h2>Register</h2>
 
     <?php if ($message): ?>
       <p class="message"><?= htmlspecialchars($message) ?></p>
     <?php endif; ?>
 
-    <form method="POST">
+    <form method="POST" action="">
       <input type="text" name="username" placeholder="Username" required>
       <input type="email" name="email" placeholder="Email" required>
       <input type="password" name="password" placeholder="Password" required>
       <button type="submit">Register</button>
     </form>
 
-    <a href="login.php">Already have an account? Login</a>
+    <p class="switch">Already have an account? <a href="login.php">Login</a></p>
+
   </div>
 </body>
 </html>

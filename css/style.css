@@ -1,6 +1,10 @@
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
+  background-image: url("../images/winter.gif");  /* Sa main page */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,16 +13,22 @@ body {
 }
 
 .box {
-  background: white;
+  background: rgba(20, 30, 40, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
   padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
   width: 320px;
+  color: #eef3f6;
 }
 
 h2 {
   text-align: center;
-  color: #333;
+  color: #f5f8fa;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 input {
@@ -26,38 +36,79 @@ input {
   padding: 10px;
   margin: 8px 0;
   box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  color: #ffffff;
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+input:focus {
+  outline: none;
+  border-color: #8fb8d8;
+  background: rgba(255, 255, 255, 0.2);
 }
 
 button {
   width: 100%;
   padding: 10px;
-  background: #007bff;
+  margin-top: 8px;
+  background: #5e7f94;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
+  font-weight: bold;
   cursor: pointer;
 }
 
 button:hover {
-  background: #0056b3;
+  background: #4a6a7f;
+}
+
+a {
+  color: #cfe3ef;
+}
+
+a:hover {
+  color: #ffffff;
+}
+
+.switch {
+  text-align: center;
+  margin-top: 30px;
+  color: #eef3f6;
+}
+
+.out {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 1px;
+}
+
+.logout-btn {
+  display: inline-block;
+  padding: 8px 20px;
+  background: #5e7f94;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.logout-btn:hover {
+  background: #4a6a7f;
 }
 
 .message {
-  color: red;
+  color: #ff8a8a;
   text-align: center;
 }
 
 .success {
-  color: green;
+  color: #9be7b0;
   text-align: center;
-}
-
-a {
-  display: block;
-  text-align: center;
-  margin-top: 10px;
 }
 
 table {
@@ -67,12 +118,12 @@ table {
 }
 
 th, td {
-  border: 1px solid #ddd;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 8px;
   text-align: left;
 }
 
 th {
-  background: #007bff;
+  background: #5e7f94;
   color: white;
 }
