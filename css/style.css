@@ -30,7 +30,7 @@ input {
     padding: 12px;
     margin: 8px 0;
 
-    border: 1px solid #ccc;
+    border: 1px solid #016bf5;
     border-radius: 5px;
 
     box-sizing: border-box;
@@ -55,11 +55,11 @@ button:hover {
 }
 
 button.delete {
-    background-color: #dc3545;
+    background-color: #31b6f3;
 }
 
 button.delete:hover {
-    background-color: #a71d2a;
+    background-color: #06619e;
 }
 
 a {
