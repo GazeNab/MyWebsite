@@ -30,6 +30,28 @@ if (isset($_POST['add'])) {
     }
 }
 
+if (isset($_POST['update'])) {
+    $product = trim($_POST['product']);
+    $newProduct = trim($_POST['new_product']);
+
+    if ($product != "" && $newProduct != "") {
+        $sql = "UPDATE products SET product_name = ? WHERE product_name = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ss", $newProduct, $product);
+        $stmt->execute();
+
+        if ($stmt->affected_rows > 0) {
+            $message = "Product updated successfully!";
+        } else {
+            $message = "Product not found!";
+        }
+
+        $stmt->close();
+    } else {
+        $message = "Please enter both current and new product names.";
+    }
+}
+
 if (isset($_POST['delete'])) {
     $product = trim($_POST['product']);
 
@@ -75,7 +97,9 @@ $result = $conn->query($sql);
 
     <form action="" method="POST">
         <input type="text" name="product" placeholder="Enter product name">
-        <button type="submit" name="add">Add Product</button>
+        <input type="text" name="new_product" placeholder="Enter new product name (for update)">
+        <button type="submit" name="add" class = "add">Add Product</button>
+        <button type="submit" name="update">Update Product</button>
         <button type="submit" name="delete" class="delete">Delete Product</button>
     </form>
 
