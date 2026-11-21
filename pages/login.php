@@ -1,36 +1,38 @@
 <?php
 
 session_start();
-include "../config/db.php";
+include "../config/db_error.php";
 
 $message = "";
 
-if (isset($_POST['login'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);
     $password = $_POST['password'];
 
-    $sql = "SELECT fullname, password FROM users WHERE username = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    if ($username != "" && $password != "") {
+        $sql = "SELECT id, fullname, password FROM users WHERE username = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-    if ($result->num_rows > 0) {
-        $user = $result->fetch_assoc();
-
-        if (password_verify($password, $user['password'])) {
-            session_regenerate_id(true);
-            $_SESSION['fullname'] = $user['fullname'];
-            header("Location: dashboard.php");
-            exit();
+        if ($row = $result->fetch_assoc()) {
+            if (password_verify($password, $row['password'])) {
+                $_SESSION['user_id'] = $row['id'];
+                $_SESSION['fullname'] = $row['fullname'];
+                header("Location: dashboard.php");
+                exit();
+            } else {
+                $message = "Invalid password.";
+            }
         } else {
-            $message = "Incorrect password!";
+            $message = "User not found.";
         }
-    } else {
-        $message = "Username not found!";
-    }
 
-    $stmt->close();
+        $stmt->close();
+    } else {
+        $message = "Please enter username and password.";
+    }
 }
 
 ?>
@@ -51,9 +53,9 @@ if (isset($_POST['login'])) {
     <p class="message"><?php echo htmlspecialchars($message); ?></p>
 
     <form action="" method="POST">
-        <input type="text" name="username" placeholder="Username" required><br>
-        <input type="password" name="password" placeholder="Password" required> <br>
-        <button type="submit" name="login">Login</button>
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
+        <button type="submit">Login</button>
     </form>
 
     <p>Don't have an account? <a href="register.php">Register here</a></p>
